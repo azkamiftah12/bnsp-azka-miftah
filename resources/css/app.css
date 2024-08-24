@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Outfit:wght@100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@tailwind base;
+@layer base {
+    html {
+      @apply font-manrope;
+    }
+  }
+@tailwind components;
+@tailwind utilities;
+
+/* Slide-in animation */
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        top: -100px; /* Mulai dari luar layar atas */
+    }
+    to {
+        opacity: 1;
+        top: 10px; /* Posisi akhir yang diinginkan */
+    }
+}
+
+/* Slide-out animation */
+@keyframes slide-out {
+    from {
+        opacity: 1;
+        top: 10px; /* Posisi akhir sebelum menghilang */
+    }
+    to {
+        opacity: 0;
+        top: -100px; /* Kembali ke luar layar atas saat menghilang */
+    }
+}
+
+/* Toast container styles */
+.toast {
+    position: fixed;
+    top: 30px; 
+    left: 50%;
+    transform: translatex(-50%);
+    opacity: 0;
+    transition: opacity 3s, transform 3s;
+}
+
+/* Add the slide-in animation when toast appears */
+.toast.slide-in {
+    animation: slide-in 3s forwards;
+}
+
+/* Add the slide-out animation when toast disappears */
+.toast.slide-out {
+    animation: slide-out 3s forwards;
+}
+
+
+
