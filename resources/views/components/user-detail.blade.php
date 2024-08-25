@@ -1,11 +1,23 @@
 <div class="mt-4 p-8">
     @if ($user->status_pendaftaran)
 
-        <div class="flex flex-col rounded-md shadow-lg mt-4 p-4 bg-slate-100">
-            <div class="flex items-center justify-between text-lg font-bold mb-4">
+        <div class="flex flex-col rounded-md pt-8 p-4 bg-white" id="print">
+            <div class="text-center text-2xl font-extrabold mb-4">
                 Formulir Pendaftaran
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-6 print">
+            <div class="flex flex-col justify-center items-center mb-4">
+
+                @if ($user->profile_picture)
+                    <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture"
+                        class="w-32 h-32 mb-3 rounded-full shadow-lg">
+                @else
+                    <img src="{{ asset('storage/profile_pictures/default.png') }}" alt="Default Profile Picture"
+                        class="w-32 h-32 mb-3 rounded-full shadow-lg">
+                @endif
+
+                <div class="text-xl capitalize font-bold text-custom-blue my-2">{{ $user->nama }}</div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-6">
                 <div>
                     <div class="text-gray-500">Nama Lengkap</div>
                     <div class="font-medium mb-4 capitalize">
@@ -102,6 +114,9 @@
                 </div>
 
             </div>
+        </div>
+        <div class="bg-white py-4">
+
             <div class="border border-gray-300"></div>
             <div class="flex justify-center my-8 no-print">
                 @if ($user->video_perkenalan)
@@ -117,7 +132,7 @@
                     <p>Anda Belum Upload Video Perkenalan.</p>
                 @endif
             </div>
-        </div>
 
+        </div>
     @endif
 </div>

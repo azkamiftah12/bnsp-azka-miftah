@@ -2,35 +2,25 @@
 @section('content')
     <div class="">
         <div class="container p-20">
-            <div class="text-2xl text-custom-blue no-print">
+            <div class="text-2xl text-custom-blue">
                 <span class="text-custom-green font-extrabold">Selamat Datang.</span> Segera Lengkapi Formulir Pendaftaran
                 Anda, lalu cetak
                 PDF untuk menyimpan dokumen pendaftaran
             </div>
             <div class="flex justify-center">
-                <div class="w-5/6 my-20 bg-white border border-gray-200 rounded-lg shadow-xl">
+                <div class="w-5/6 my-20 bg-slate-100 border border-gray-200 rounded-lg shadow-xl">
                     <div class="flex flex-col items-center py-10">
-                        @if ($user->profile_picture)
-                            <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture"
-                                class="w-32 h-32 mb-3 rounded-full shadow-lg">
-                        @else
-                            <img src="{{ asset('storage/profile_pictures/default.png') }}" alt="Default Profile Picture"
-                                class="w-32 h-32 mb-3 rounded-full shadow-lg">
-                        @endif
-
-                        <div class="text-xl capitalize font-bold text-custom-blue my-2">{{ $user->nama }}</div>
-
-                        <div class="flex mt-4 md:mt-6">
+                        <div class="flex">
 
                             <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
                                 class="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-center text-white bg-custom-green"
                                 type="button">
                                 Isi Form
                             </button>
-                            <a href="javascript:void(0);" onclick="window.print();"
+                            <button onclick="downloadPdf()"
                                 class="py-2 px-4 ms-2 text-sm font-medium text-white focus:outline-none bg-custom-yellow rounded-lg border border-gray-200">
                                 Cetak PDF
-                            </a>
+                            </button>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit"
@@ -43,33 +33,16 @@
                     </div>
                 </div>
             </div>
-            <style>
-                @media print {
 
-                    /* Hide elements that shouldn't be printed */
-                    .no-print {
-                        display: none;
-                    }
-
-                    /* Optional: Style the content for better readability when printed */
-                    body {
-                        font-size: 12pt;
-                        color: #000;
-                    }
-
-                    /* Additional styles for printed content */
-                    .container {
-                        padding: 10px;
-                    }
-
-                    /* Adjustments for print layout */
-                    .header,
-                    .details {
-                        page-break-after: always;
-                        /* Ensure each section starts on a new page if needed */
-                    }
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+                integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script>
+                function downloadPdf() {
+                    var element = document.getElementById("print")
+                    html2pdf().from(element).save()
                 }
-            </style>
+            </script>
 
             <!-- Main modal -->
             <div id="authentication-modal" tabindex="-1" aria-hidden="true"
